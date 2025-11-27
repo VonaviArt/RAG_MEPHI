@@ -27,7 +27,7 @@ embeddings = hf_embeddings_model.embed_documents(all_texts)
 
 #оки-доки, теперь вбд
 db = ld.connect(r"C:\Users\Lenovo\Desktop\RAG\db")
-schema = pa.schema([ #lance не принимает схемы без pyarrow потому что мать - апаче
+schema = pa.schema([ #lance не принимает схемы без pyarrow
     pa.field("id", pa.int64()),
     pa.field("text", pa.string()),
     pa.field("embedding", pa.list_(pa.float32(), 768))
@@ -59,7 +59,7 @@ context = "\n\n".join(record["text"] for record in results_list)
 #апишка к чату гпт
 client = OpenAI(
     base_url="https://router.huggingface.co/v1",
-    api_key='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',#ключ кринжово хранить в коде, потом подумаю что делать
+    api_key='-...-'
 )
 
 completion = client.chat.completions.create(
@@ -77,4 +77,5 @@ completion = client.chat.completions.create(
 )
 
 print(completion.choices[0].message.content)
+
 
