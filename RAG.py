@@ -12,7 +12,7 @@ from dotenv import load_dotenv
 load_dotenv() 
 
 # пдф
-file_path = r"RAG_инфа по распорядку и пр.pdf"  # заменить позже
+file_path = r"RAG_инфа по распорядку и пр.pdf"
 loader = PyPDFLoader(file_path)
 docs = loader.load()  # docs = список по страницам
 
@@ -106,7 +106,5 @@ def get_answer(question: str) -> str:
         ],
     )
     
-    # print("Ответ модели:")
-    # print(completion.choices[0].message.content)
     
     return completion.choices[0].message.content
