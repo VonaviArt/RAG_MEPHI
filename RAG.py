@@ -108,3 +108,45 @@ def get_answer(question: str) -> str:
     
     
     return completion.choices[0].message.content
+
+# # метрики
+# def simple_metrics(question, context, answer):
+#     # Context Relevance
+#     q_words = set([w for w in question.lower().split() if len(w) > 3])
+#     c_words = set([w for w in context.lower().split() if len(w) > 3])
+#     context_rel = len(q_words & c_words) / len(q_words)
+
+#     # Faithfulness
+#     def real_faithfulness(question, context, answer):
+#         # разбить ответ
+#         answer_sentences = [s.strip() for s in answer.lower().split('.') if s.strip()]
+
+#         if "отсутствует" in answer.lower() or "нет данных" in answer.lower():
+#             return 1.0
+
+#         true_sentences = 0
+#         for sentence in answer_sentences:
+#             # есть ли ключевые слова ответа В контексте
+#             sentence_words = set(w for w in sentence.split() if len(w) > 3)
+#             context_words = set(w for w in context.lower().split() if len(w) > 3)
+
+#             # если >50% слов предложения есть в контексте - правда
+#             match_ratio = len(sentence_words & context_words) / max(len(sentence_words), 1)
+#             if match_ratio > 0.5:
+#                 true_sentences += 1
+
+#         faithfulness = true_sentences / max(len(answer_sentences), 1)
+#         return round(faithfulness, 2)
+
+#     faithfulness = real_faithfulness(question, context, answer)
+
+#     # Completeness
+#     if "отсутствует" in answer.lower() or "нет данных" in answer.lower():
+#         completeness = 0.8
+#     else:
+#         completeness = min(len(answer) / 200, 1.0)
+
+#     print(f"Context Relevance:   {context_rel:.3f}")
+#     print(f"Answer Faithfulness: {faithfulness:.3f}")
+#     print(f"Answer Completeness: {completeness:.3f}")
+#     print(f"Общая оценка RAG:    {(context_rel + faithfulness + completeness) / 3:.3f}")
