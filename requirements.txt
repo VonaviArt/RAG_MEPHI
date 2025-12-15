@@ -6,7 +6,7 @@ langchain-chroma
 langchain-huggingface
 streamlit
 pypdf
-torch    # Установить с --index-url https://download.pytorch.org/whl/cpu для CPU версии
+torch
 sentence-transformers
 langchain-core
 langchain-classic
