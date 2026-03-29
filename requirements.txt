@@ -11,3 +11,5 @@ sentence-transformers
 langchain-core
 langchain-classic
 rank-bm25
+ragas
+pandas
