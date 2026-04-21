@@ -1,5 +1,8 @@
+# streamlit-оболочка над get_answer
+
 import streamlit as st
 from RAG import get_answer
+
 
 def answer_question(question: str) -> str:
     return get_answer(question)
@@ -14,7 +17,7 @@ st.write("Введите вопрос в поле ниже.")
 
 user_question = st.text_input("Ваш вопрос:")
 
-# при отправке
+# отправка вопроса в rag
 if st.button("Получить ответ"):
     if user_question.strip() == "":
         st.warning("Введите вопрос.")
@@ -28,6 +31,3 @@ if st.button("Получить ответ"):
         except Exception as e:
             st.error(f"Произошла ошибка при обработке запроса: {str(e)}")
             st.info("Пожалуйста, убедитесь, что RAG система инициализирована корректно.")
-
-
-
