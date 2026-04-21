@@ -13,3 +13,5 @@ langchain-classic
 rank-bm25
 ragas
 pandas
+python-dotenv
+ollama
