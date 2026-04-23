@@ -6,7 +6,7 @@ from ollama import chat
 def chat_answer(my_text: str, context: str) -> str:
     # локальная модель, системный и пользовательский промпт
     response = chat(
-        model="qwen3:4b-thinking",
+        model="t-tech/T-lite-it-2.1:q4_K_M",
         messages=[
             {
                 "role": "system",
