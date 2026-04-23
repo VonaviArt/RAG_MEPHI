@@ -1,7 +1,7 @@
 # streamlit-оболочка над get_answer
 
 import streamlit as st
-from RAG import get_answer
+from mephi_rag.pipeline import get_answer
 
 
 def answer_question(question: str) -> str:

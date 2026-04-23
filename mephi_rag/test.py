@@ -1,7 +1,7 @@
 import csv
 from pathlib import Path
 
-from RAG import get_answer
+from mephi_rag.pipeline import get_answer
 
 src = Path("raw_data/вопрос_ответ_par.csv")
 
