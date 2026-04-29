@@ -4,7 +4,6 @@ openai
 chromadb
 langchain-chroma
 langchain-huggingface
-streamlit
 pypdf
 torch
 sentence-transformers
@@ -15,3 +14,5 @@ ragas
 pandas
 python-dotenv
 ollama
+fastapi
+uvicorn[standard]
