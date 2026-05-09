@@ -1,5 +1,12 @@
 from langchain_core.documents import Document
 from sentence_transformers import CrossEncoder
+from typing import Any, TypedDict
+
+
+class ChunkInfo(TypedDict):
+    text: str
+    score: float
+    metadata: dict[str, Any]
 
 
 def make_reranker():
@@ -7,6 +14,9 @@ def make_reranker():
 
 
 def build_context_after_rerank(my_text: str, retriever_results: list[Document], reranker, top_k: int = 5):
+    if not retriever_results:
+        return "", []
+
     # пары (запрос, текст чанка)
     pairs = [[my_text, doc.page_content] for doc in retriever_results]
     rerank_scores = reranker.predict(pairs)
@@ -17,8 +27,19 @@ def build_context_after_rerank(my_text: str, retriever_results: list[Document], 
         key=lambda i: rerank_scores[i],
         reverse=True,
     )
-    reranked_docs = [retriever_results[i] for i in sorted_indices[:top_k]]
+    top_indices = sorted_indices[:top_k]
+    reranked_docs = [retriever_results[i] for i in top_indices]
 
     # одна строка контекста для llm
     context = "\n\n".join([doc.page_content for doc in reranked_docs])
-    return context
+    chunks: list[ChunkInfo] = []
+    for i in top_indices:
+        doc = retriever_results[i]
+        chunks.append(
+            {
+                "text": doc.page_content,
+                "score": float(rerank_scores[i]),
+                "metadata": doc.metadata or {},
+            }
+        )
+    return context, chunks

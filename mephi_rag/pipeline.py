@@ -3,13 +3,14 @@
 import os
 import shutil
 from pathlib import Path
+from typing import TypedDict
 
 from dotenv import load_dotenv
 
 from mephi_rag.chunking import split_markdown_by_separator_for_rag
 from mephi_rag.embeddings import hf_embeddings_model
 from mephi_rag.generate import chat_answer
-from mephi_rag.rerank import build_context_after_rerank, make_reranker
+from mephi_rag.rerank import ChunkInfo, build_context_after_rerank, make_reranker
 from mephi_rag.retrieve import make_ensemble_retriever
 from mephi_rag.vectorstore import make_vector_db
 
@@ -20,6 +21,11 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 _inited = False
 _ensemble_retriever = None
 _reranker = None
+
+
+class QueryResult(TypedDict):
+    answer: str
+    chunks: list[ChunkInfo]
 
 
 def _resolve_under_repo(name: str, default: str) -> Path:
@@ -88,7 +94,7 @@ def rebuild_index():
     return _resolve_under_repo("CHROMA_PERSIST_DIR", "chroma_db")
 
 
-def get_answer(question: str) -> str:
+def query_rag(question: str) -> QueryResult:
     global _reranker
 
     if not _inited:
@@ -96,7 +102,7 @@ def get_answer(question: str) -> str:
 
     my_text = (question or "").strip()
     if not my_text:
-        return ""
+        return {"answer": "", "chunks": []}
 
     # bm25 + вектор
     retriever_results = _ensemble_retriever.invoke(my_text)
@@ -105,5 +111,10 @@ def get_answer(question: str) -> str:
         _reranker = make_reranker()
 
     # контекст после реранка
-    context = build_context_after_rerank(my_text, retriever_results, _reranker, top_k=5)
-    return chat_answer(my_text, context)
+    context, chunks = build_context_after_rerank(my_text, retriever_results, _reranker, top_k=5)
+    answer = chat_answer(my_text, context)
+    return {"answer": answer, "chunks": chunks}
+
+
+def get_answer(question: str) -> str:
+    return query_rag(question)["answer"]
