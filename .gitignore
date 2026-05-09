@@ -2,11 +2,7 @@
 __pycache__/
 *.pyc
 *.pyo
-<<<<<<< HEAD
-.venv
-=======
 venv
 .venv/
 frontend/node_modules/
 chroma_db/
->>>>>>> 5fa9e0c96bfcd85dbf15b74ab565351aeb8d7b1e
