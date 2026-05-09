@@ -23,7 +23,7 @@ _reranker = None
 
 
 def _resolve_under_repo(name: str, default: str) -> Path:
-    # путь из env; относительные — от корня репо
+    # путь из env, a относительные от корня репо
     raw = os.getenv(name) or default
     p = Path(raw)
     if not p.is_absolute():
@@ -42,7 +42,7 @@ def _init(force_rebuild: bool = False):
     if HF_API_KEY:
         os.environ["HF_TOKEN"] = HF_API_KEY
 
-    rag_md = _resolve_under_repo("RAG_MD_PATH", "RAG.md")
+    rag_md = _resolve_under_repo("RAG_MD_PATH", "raw_data/RAG.md")
     if not rag_md.is_file():
         raise FileNotFoundError("Не найден RAG.md: %s" % rag_md)
 
@@ -68,14 +68,14 @@ def _init(force_rebuild: bool = False):
     )
 
     _ensemble_retriever = make_ensemble_retriever(vector_db, chunk_documents, k=20)
-    # reranker создаётся при первом get_answer (тяжёлая модель)
+    # reranker создаётся при первом get_answer
     _reranker = None
     _inited = True
 
 
 def reset_pipeline():
     global _inited, _ensemble_retriever, _reranker
-    # только память; каталог chroma на диске не трогаем
+    # только память, каталог chroma на диске не трогаем
     _inited = False
     _ensemble_retriever = None
     _reranker = None

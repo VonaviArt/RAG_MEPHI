@@ -1,9 +1,9 @@
 import csv
 from pathlib import Path
 
-from mephi_rag.pipeline import get_answer
+from RAG import get_answer
 
-src = Path("raw_data/вопрос_ответ_par.csv")
+src = Path("raw_data/вопрос_ответ_раг.csv")
 
 out = Path("raw_data/ответы_test.csv")
 
@@ -12,7 +12,7 @@ with src.open("r", encoding="utf-8", newline="") as f_in, out.open("w", encoding
     writer = csv.DictWriter(f_out, fieldnames=["N", "question", "pred_answer"])
     writer.writeheader()
     for i, row in enumerate(reader):
-        if i >= 40:
+        if i >= 10:
             break
         q = (row.get("question") or "").strip()
         writer.writerow({"N": row.get("N", i + 1), "question": q, "pred_answer": get_answer(q)})
