@@ -6,3 +6,6 @@ venv
 .venv/
 frontend/node_modules/
 chroma_db/
+
+node_modules
+dist
