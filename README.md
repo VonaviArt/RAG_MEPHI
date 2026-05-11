@@ -6,18 +6,13 @@
 
 ## 🔄 RAG Pipeline
 
-```mermaid
-graph LR
-    Q["User Query"] --> R["Hybrid Retriever<br/>(Dense + BM25)"]
-    R --> RR["Cross-Encoder<br/>Reranker"]
-    RR --> C["Top-5 Context"]
-    C --> L["LLM on Ollama<br/>(Llama 3)"]
-    L --> A["Final Answer"]
-    
-    style R fill:#f9f,stroke:#333,stroke-width:1px
-    style RR fill:#bbf,stroke:#333,stroke-width:1px
-    style L fill:#bfb,stroke:#333,stroke-width:1px
-
+1. **Query** → Пользовательский запрос
+2. **Hybrid Retriever** → Поиск: Dense (эмбеддинги) + BM25 (ключевые слова)
+3. **RRF Fusion** → Объединение результатов обоих поисков
+4. **Reranker** → Cross-Encoder (BAAI/bge-reranker-v2-m3)
+5. **Context** → Топ-5 наиболее релевантных чанков
+6. **LLM** → Ollama (Llama 3 / Mistral)
+7. **Answer** → Финальный ответ
   
 | Метрика | Baseline | +Reranker | Δ | Δ% |
 |:---|:---:|:---:|:---:|:---:|
