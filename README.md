@@ -52,7 +52,7 @@
 ---
 
 ## Примеры работы:
-<img width="1305" height="1522" alt="image" src="https://github.com/user-attachments/assets/51993283-fe57-4ec1-a6e5-44c5d42ae2b7" />
+<img width="700" height="750" alt="image" src="https://github.com/user-attachments/assets/51993283-fe57-4ec1-a6e5-44c5d42ae2b7" />
 <img width="1304" height="1356" alt="image" src="https://github.com/user-attachments/assets/1a7bb83b-ef31-4f46-a842-ffb3c155ec63" />
 
 ʕ ᵔᴥᵔ ʔ
