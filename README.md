@@ -4,16 +4,22 @@
 
 # RAG ассистент для помощи студентам с поиском информации в документах МИФИ.
 
-## 🔧 RAG Pipeline Components
-
-| Stage | Component | Model / Technology | Role |
-|:---|:---|:---|:---|
-| **1. Retrieval** | Hybrid Search | Dense (sentence-transformers) + BM25 | Находит кандидатов |
-| **2. Fusion** | RRF (Reciprocal Rank Fusion) | Custom | Объединяет результаты |
-| **3. Reranking** | Cross-Encoder | `BAAI/bge-reranker-v2-m3` | Отсеивает шум, улучшает precision |
-| **4. Generation** | LLM | Ollama (Llama 3 / Mistral) | Синтезирует ответ |
-
-### Pipeline Flow
+graph TD
+    A["User Query"] --> B["Hybrid Retriever"]
+    
+    subgraph B [Hybrid Search]
+        B1["Dense/Vector"] --> F["RRF Fusion"]
+        B2["Sparse/BM25"] --> F
+    end
+    
+    B --> C["Cross‑Encoder Reranker"]
+    C --> D["Top‑K Chunks"]
+    D --> E["LLM on Ollama"]
+    E --> F_ans["Answer"]
+    
+    style B fill:#f9f,stroke:#333,stroke-width:2px
+    style C fill:#bbf,stroke:#333,stroke-width:2px
+    style E fill:#bfb,stroke:#333,stroke-width:2px
 
   
 | Метрика | Baseline | +Reranker | Δ | Δ% |
