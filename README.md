@@ -3,12 +3,20 @@
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 # RAG ассистент для помощи студентам с поиском информации в документах МИФИ.
+```markdown
+## 🔄 RAG Pipeline
 
+```mermaid
 graph LR
-    Q[Query] --> R[Hybrid Retriever]
-    R --> RR[Reranker]
-    RR --> L[Ollama]
-    L --> A[Answer]
+    Q["User Query"] --> R["Hybrid Retriever<br/>(Dense + BM25)"]
+    R --> RR["Cross-Encoder<br/>Reranker"]
+    RR --> C["Top-5 Context"]
+    C --> L["LLM on Ollama<br/>(Llama 3)"]
+    L --> A["Final Answer"]
+    
+    style R fill:#f9f,stroke:#333,stroke-width:1px
+    style RR fill:#bbf,stroke:#333,stroke-width:1px
+    style L fill:#bfb,stroke:#333,stroke-width:1px
 
   
 | Метрика | Baseline | +Reranker | Δ | Δ% |
