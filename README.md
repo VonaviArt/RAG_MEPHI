@@ -4,16 +4,25 @@
 
 # RAG ассистент для помощи студентам с поиском информации в документах МИФИ.
 
-## 📊 Содержание (оглавление)
-- О проекте
-- Результаты
-- Метрики
-- Установка
-- Использование
-- Визуализация
-- Выводы
-- Стек технологий
-- Контакты
+## 🔄 RAG Pipeline
+
+```mermaid
+flowchart LR
+    Q[User Query] --> R[Retriever]
+    
+    subgraph Retriever [Hybrid Search]
+        D[Dense/Vector] --> F[RRF Fusion]
+        S[Sparse/BM25] --> F
+    end
+    
+    R --> Rerank[Cross-Encoder Reranker]
+    Rerank --> Context[Top-K Chunks]
+    Context --> LLM[LLM on Ollama]
+    LLM --> A[Answer]
+    
+    style Retriever fill:#f9f,stroke:#333,stroke-width:2px
+    style Rerank fill:#bbf,stroke:#333,stroke-width:2px
+    style LLM fill:#bfb,stroke:#333,stroke-width:2px
   
 | Метрика | Baseline | +Reranker | Δ | Δ% |
 |:---|:---:|:---:|:---:|:---:|
@@ -32,14 +41,6 @@
 - Context Precision: 0.55 → 0.76 (+38%)
 - Faithfulness: 0.76 → 0.84 (+11%)
 
- ## 🔍 Диагностика
-
-| Комбинация | Вывод | Действие |
-|:---|:---|:---|
-| Precision ↓ (55%), Recall ∼ (66%) | Много шума в поиске | ✅ Реранкер решил |
-| Recall ∼ (66-69%) | Нужные факты теряются | ⚠️ Улучшить чанкинг/эмбеддер |
-| Faithfulness выросла на 11% | LLM чувствительна к шуму | 💡 Можно усилить промпт |
-Статистика
 
 
 Докер контейнер
