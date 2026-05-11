@@ -1,5 +1,9 @@
+![Python Version](https://img.shields.io/badge/python-3.9+-blue)
+![RAGAS](https://img.shields.io/badge/RAGAS-0.2.0-green)
+![License](https://img.shields.io/badge/license-MIT-blue)
+![Experiments](https://img.shields.io/badge/experiments-20%20questions-orange)
+
 RAG ассистент для помощи студентам с поиском информации в документах МИФИ.
-Ансамбевый ретривер, реранкер, независимая LLM.
 
 Статистика
 
@@ -7,9 +11,5 @@ RAG ассистент для помощи студентам с поиском 
 
 Примеры работы:
 
-
-![photo_2025-12-15_15-42-23](https://github.com/user-attachments/assets/21b731f0-8e61-4eb6-9fd7-3fdc7687f796)
-
-![photo_2025-12-15_15-42-23](https://github.com/user-attachments/assets/c2973613-7c4a-432d-927d-52fa26009b23)
 
 ʕ ᵔᴥᵔ ʔ
