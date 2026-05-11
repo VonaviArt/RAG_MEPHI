@@ -3,7 +3,7 @@
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
 # RAG ассистент для помощи студентам с поиском информации в документах МИФИ.
-```markdown
+
 ## 🔄 RAG Pipeline
 
 ```mermaid
