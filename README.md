@@ -4,22 +4,11 @@
 
 # RAG ассистент для помощи студентам с поиском информации в документах МИФИ.
 
-graph TD
-    A["User Query"] --> B["Hybrid Retriever"]
-    
-    subgraph B [Hybrid Search]
-        B1["Dense/Vector"] --> F["RRF Fusion"]
-        B2["Sparse/BM25"] --> F
-    end
-    
-    B --> C["Cross‑Encoder Reranker"]
-    C --> D["Top‑K Chunks"]
-    D --> E["LLM on Ollama"]
-    E --> F_ans["Answer"]
-    
-    style B fill:#f9f,stroke:#333,stroke-width:2px
-    style C fill:#bbf,stroke:#333,stroke-width:2px
-    style E fill:#bfb,stroke:#333,stroke-width:2px
+graph LR
+    Q[Query] --> R[Hybrid Retriever]
+    R --> RR[Reranker]
+    RR --> L[Ollama]
+    L --> A[Answer]
 
   
 | Метрика | Baseline | +Reranker | Δ | Δ% |
