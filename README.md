@@ -4,7 +4,7 @@
 
 # RAG-ассистент для студентов МИФИ
 
-Помощник для поиска информации в документах МИФИ на основе технологии RAG (Retrieval-Augmented Generation).
+## Помощник для поиска информации в документах МИФИ на основе технологии RAG (Retrieval-Augmented Generation).
 
 ## 🔄 RAG Pipeline
 
@@ -18,18 +18,6 @@
 | 6 | **Answer** | Финальный ответ |
 
 ---
-
-## Результаты эксперимента
-
-| Метрика | Baseline | +Reranker | Δ | Δ% |
-|:---|:---:|:---:|:---:|:---:|
-| **Context Precision** | 0.55 | **0.76** | **+0.21** | **+38%** |
-| Faithfulness | 0.76 | 0.84 | +0.08 | +11% |
-| Answer Relevancy | 0.80 | 0.84 | +0.04 | +5% |
-| Context Recall | 0.66 | 0.69 | +0.03 | +5% |
-
-> **Ключевой результат:** Context Precision выросла на **38%** после добавления реранкера.
-
 
 ## Примеры работы:
 <img width="700" height="750" alt="image" src="https://github.com/user-attachments/assets/51993283-fe57-4ec1-a6e5-44c5d42ae2b7" /> 
