@@ -94,7 +94,8 @@ body {
 }
 
 .section--query {
-  padding-bottom: 36px;
+  margin-bottom: 32px;
+  padding-bottom: 32px;
   border-bottom: 1px solid var(--border);
 }
 
@@ -145,7 +146,12 @@ textarea:focus {
   align-items: center;
 }
 
-button[type="submit"] {
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 168px;
   padding: 12px 24px;
   border: 1px solid transparent;
   border-radius: var(--radius);
@@ -157,21 +163,46 @@ button[type="submit"] {
   cursor: pointer;
   transition:
     background 0.15s ease,
-    transform 0.1s ease;
+    transform 0.1s ease,
+    opacity 0.15s ease;
 }
 
-button[type="submit"]:hover:not(:disabled) {
+.btn-submit:hover:not(:disabled) {
   background: var(--accent-hover);
 }
 
-button[type="submit"]:active:not(:disabled) {
+.btn-submit:active:not(:disabled) {
   background: var(--accent-active);
   transform: translateY(1px);
 }
 
-button[type="submit"]:disabled {
-  opacity: 0.45;
+.btn-submit--busy {
+  opacity: 0.88;
+}
+
+.btn-submit:disabled {
   cursor: not-allowed;
+}
+
+.btn-spinner {
+  display: none;
+  width: 1.05rem;
+  height: 1.05rem;
+  flex-shrink: 0;
+  border: 2px solid rgba(240, 241, 245, 0.25);
+  border-top-color: rgba(240, 241, 245, 0.85);
+  border-radius: 50%;
+  animation: btn-spin 0.65s linear infinite;
+}
+
+.btn-submit--busy .btn-spinner {
+  display: inline-block;
+}
+
+@keyframes btn-spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .section {
@@ -180,6 +211,51 @@ button[type="submit"]:disabled {
 
 .section.section--query {
   margin-bottom: 32px;
+}
+
+.section.section--context {
+  margin-bottom: 32px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--border);
+}
+
+.section--contacts {
+  margin-bottom: 0;
+}
+
+.section--contacts .section-title {
+  margin-bottom: 12px;
+}
+
+.contacts-panel {
+  margin: 0;
+  font-size: 0.9375rem;
+  line-height: 1.58;
+  font-style: normal;
+}
+
+.contacts-line {
+  margin: 0 0 12px;
+  color: var(--text-muted);
+}
+
+.contacts-line:last-child {
+  margin-bottom: 0;
+}
+
+.contacts-key {
+  color: var(--text-subtle);
+  font-weight: 500;
+}
+
+.contacts-line a {
+  color: var(--text-muted);
+  text-decoration-color: rgba(143, 150, 163, 0.45);
+}
+
+.contacts-line a:hover {
+  color: var(--text);
+  text-decoration-color: var(--accent-hover);
 }
 
 .section:last-child {
