@@ -2,40 +2,57 @@
 ![RAGAS](https://img.shields.io/badge/RAGAS-0.2.0-green)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 
-# RAG ассистент для помощи студентам с поиском информации в документах МИФИ.
+# 🎓 RAG-ассистент для студентов МИФИ
+
+Помощник для поиска информации в документах МИФИ на основе технологии RAG (Retrieval-Augmented Generation).
 
 ## 🔄 RAG Pipeline
 
-1. **Query** → Пользовательский запрос
-2. **Hybrid Retriever** → Поиск: Dense (эмбеддинги) + BM25 (ключевые слова)
-3. **RRF Fusion** → Объединение результатов обоих поисков
-4. **Reranker** → Cross-Encoder (BAAI/bge-reranker-v2-m3)
-5. **Context** → Топ-5 наиболее релевантных чанков
-6. **LLM** → Ollama (Llama 3 / Mistral)
-7. **Answer** → Финальный ответ
-  
+| Step | Component | Description |
+|:---:|:---|:---|
+| 1 | **Query** | Пользовательский запрос |
+| 2 | **EnsembleRetriever** | Dense (эмбеддинги) + BM25 (ключевые слова) |
+| 3 | **Reranker** | Cross-Encoder (`LaBSE-en-ru`) |
+| 4 | **Context** | Топ-5 наиболее релевантных чанков |
+| 5 | **LLM** | Ollama (`T-lite 2.1`) |
+| 6 | **Answer** | Финальный ответ |
+
+**Pipeline flow:** `Query → EnsembleRetriever → Reranker → Context → Ollama → Answer`
+
+---
+
+## 📊 Результаты эксперимента
+
 | Метрика | Baseline | +Reranker | Δ | Δ% |
 |:---|:---:|:---:|:---:|:---:|
-| Context Precision | 0.55 | **0.76** | **+0.21** | **+38%** |
+| **Context Precision** | 0.55 | **0.76** | **+0.21** | **+38%** |
 | Faithfulness | 0.76 | 0.84 | +0.08 | +11% |
 | Answer Relevancy | 0.80 | 0.84 | +0.04 | +5% |
 | Context Recall | 0.66 | 0.69 | +0.03 | +5% |
 
+> **Ключевой результат:** Context Precision выросла на **38%** после добавления реранкера.
+
+---
+
 ## 🎯 Проблема
-Без реранкера 45% контекста — нерелевантный шум → LLM путается
+
+Без реранкера **45% контекста** — нерелевантный шум, из-за чего LLM путается и даёт неточные ответы.
 
 ## 💡 Решение
-Добавили Cross-Encoder реранкер (BAAI/bge-reranker-v2-m3)
 
-## ✨ Результат
-- Context Precision: 0.55 → 0.76 (+38%)
-- Faithfulness: 0.76 → 0.84 (+11%)
+Добавлен **Cross-Encoder реранкер** (`BAAI/bge-reranker-v2-m3`), который отсеивает мусорные чанки перед подачей в LLM.
 
+## ✨ Результаты улучшения
 
+| Показатель | Без реранкера | С реранкером | Улучшение |
+|:---|:---:|:---:|:---:|
+| Context Precision | 0.55 | 0.76 | **+38%** |
+| Faithfulness | 0.76 | 0.84 | **+11%** |
 
-Докер контейнер
+---
 
-Примеры работы:
-
+## Примеры работы:
+<img width="1305" height="1522" alt="image" src="https://github.com/user-attachments/assets/51993283-fe57-4ec1-a6e5-44c5d42ae2b7" />
+<img width="1304" height="1356" alt="image" src="https://github.com/user-attachments/assets/1a7bb83b-ef31-4f46-a842-ffb3c155ec63" />
 
 ʕ ᵔᴥᵔ ʔ
